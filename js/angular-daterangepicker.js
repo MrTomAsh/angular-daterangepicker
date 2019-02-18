@@ -22,7 +22,9 @@
         picker: '=?',
         model: '=ngModel',
         opts: '=options',
-        clearable: '='
+        clearable: '=',
+        useclearvalue: '=',
+        clearvalue: '='
       },
       link: function($scope, element, attrs, modelCtrl) {
         var _clear, _init, _initBoundaryField, _mergeOpts, _picker, _setDatePoint, _setEndDate, _setStartDate, _validateRange, allowInvalid, customOpts, el, getViewValue, opts, setModelOptions;
@@ -182,6 +184,9 @@
           $scope.picker = _picker;
           _picker.container.hide();
           _picker.container.addClass((opts.pickerClasses || "") + " " + (attrs['pickerClasses'] || ""));
+          $('.daterangepicker').click(function(e) {
+            e.stopPropagation();
+          });
           el.on('show.daterangepicker', function(ev, picker) {
             el.addClass('picker-open');
             return $scope.$apply(function() {
@@ -335,6 +340,9 @@
                     startDate: null,
                     endDate: null
                   };
+                  if ($scope.useclearvalue) {
+                    $scope.model = $scope.clearvalue;
+                  }
                   el.val("");
                 }
                 picker.cancelingClick = null;

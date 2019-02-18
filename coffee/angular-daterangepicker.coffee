@@ -18,6 +18,8 @@ pickerModule.directive 'dateRangePicker', ($compile, $timeout, $parse, dateRange
     model: '=ngModel'
     opts: '=options'
     clearable: '='
+    useclearvalue: '='
+    clearvalue: '='
   link: ($scope, element, attrs, modelCtrl) ->
     # Custom angular extend function to extend locales, so they are merged instead of overwritten
     # angular.merge removes prototypes...
@@ -186,6 +188,11 @@ pickerModule.directive 'dateRangePicker', ($compile, $timeout, $parse, dateRange
       _picker.container.hide()
       _picker.container.addClass((opts.pickerClasses || "") + " " + (attrs['pickerClasses'] || ""))
 
+      $('.daterangepicker').click( (e) ->
+        e.stopPropagation()
+        return
+      )
+
       el.on 'show.daterangepicker', (ev, picker) ->
         el.addClass('picker-open')
 
@@ -333,6 +340,8 @@ pickerModule.directive 'dateRangePicker', ($compile, $timeout, $parse, dateRange
           el.on 'cancel.daterangepicker', (ev, picker) ->
             if (!picker.cancelingClick)
               $scope.model = if opts.singleDatePicker then null else {startDate: null, endDate: null}
+              if($scope.useclearvalue)
+                $scope.model = $scope.clearvalue
               el.val("")
             picker.cancelingClick = null
             $timeout -> $scope.$apply()

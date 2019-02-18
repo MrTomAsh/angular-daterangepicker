@@ -97,6 +97,13 @@ This will be called in the second $.daterangepicker callback parameter
 `picker-classes` : **string**  
 -- additional classes added to picker dropdown element
 
+`useclearvalue` : **boolean**  
+-- if set to true than the clearvalue (see below) is in use
+
+`clearvalue` : **any**  
+-- value set on model when click Clear button
+
+
 ## Example element
 ```
 <input date-range-picker class="form-control date-picker" type="text"
@@ -171,6 +178,10 @@ Version > 0.2.0 requires [Bootstrap Datepicker](https://github.com/dangrossman/b
 Version > 0.1.1 requires [Bootstrap Datepicker](https://github.com/dangrossman/bootstrap-daterangepicker) 1.3.3 and newer.
 
 ## Changes of note
+####0.3.1
+1) `clearvalue` and `useclearvalue` parameters added
+2) stopPagination added to the calendar to prevent closing the dropdown when clicking on the calendar
+
 ####0.3.0
 `cancelOnOutsideClick` - enabled by default, was previously unhandled
 
