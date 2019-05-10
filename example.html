@@ -6,7 +6,7 @@
     <title>Daterange picker example</title>
 
     <!-- bower:css -->
-    <link rel="stylesheet" href="lib/bootstrap-daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="node_modules/bootstrap-daterangepicker/daterangepicker.css" />
     <!-- endbower -->
 
     <style type="text/css">
@@ -69,11 +69,11 @@
 
 <body>
     <!-- bower:js -->
-    <script src="lib/jquery/dist/jquery.js"></script>
-    <script src="lib/angular/angular.js"></script>
-    <script src="lib/angular-messages/angular-messages.js"></script>
-    <script src="lib/moment/moment.js"></script>
-    <script src="lib/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="node_modules/angular-messages/angular-messages.js"></script>
+    <script src="node_modules/moment/moment.js"></script>
+    <script src="node_modules/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- endbower -->
 
     <script src="js/angular-daterangepicker.js"></script>
@@ -103,9 +103,11 @@
                     <div>
                         <input date-range-picker id="daterange2" name="drpMinMax" class="form-control date-picker" type="text"
                                ng-model="dateMinMax"
+                               opens="left"
                                ng-model-options="{ allowInvalid: true }"
                                picker="page.pickerMinMax"
                                min="'2018-12-20'" max="page.attributeMax"
+
                                required/>
                         <div class="help-block" ng-messages="dateForm.drpMinMax.$error">
                             <p ng-message="min">Start date must be at least {{page.pickerMinMax.minDate}}.</p>
@@ -252,6 +254,7 @@ exampleApp.controller('TestCtrl', function($scope) {
         options: {
             minDate: moment().subtract(1, "year"),
             maxDate: moment().add(2, "weeks"),
+            opens: 'left'
         }
     };
 

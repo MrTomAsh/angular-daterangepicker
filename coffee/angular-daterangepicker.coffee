@@ -20,6 +20,7 @@ pickerModule.directive 'dateRangePicker', ($compile, $timeout, $parse, dateRange
     clearable: '='
     useclearvalue: '='
     clearvalue: '='
+    addutcdiff: '='
   link: ($scope, element, attrs, modelCtrl) ->
     # Custom angular extend function to extend locales, so they are merged instead of overwritten
     # angular.merge removes prototypes...
@@ -226,9 +227,17 @@ pickerModule.directive 'dateRangePicker', ($compile, $timeout, $parse, dateRange
                    !$scope.model ||
                    !picker.startDate.isSame($scope.model.startDate) || !picker.endDate.isSame($scope.model.endDate)
                    )
+
+            if $scope.addutcdiff
+              startDate = picker.startDate.add(picker.startDate.utcOffset(),'minutes')
+              endDate = picker.endDate.add(picker.endDate.utcOffset(), 'minutes')
+            else
+              startDate = picker.startDate
+              endDate = picker.endDate
+
             $scope.model = {
-              startDate: picker.startDate
-              endDate: picker.endDate
+              startDate: startDate
+              endDate: endDate
               label: picker.chosenLabel
             }
           return

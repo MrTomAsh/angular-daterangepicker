@@ -24,7 +24,8 @@
         opts: '=options',
         clearable: '=',
         useclearvalue: '=',
-        clearvalue: '='
+        clearvalue: '=',
+        addutcdiff: '='
       },
       link: function($scope, element, attrs, modelCtrl) {
         var _clear, _init, _initBoundaryField, _mergeOpts, _picker, _setDatePoint, _setEndDate, _setStartDate, _validateRange, allowInvalid, customOpts, el, getViewValue, opts, setModelOptions;
@@ -211,6 +212,7 @@
           });
           el.on('apply.daterangepicker', function(ev, picker) {
             return $scope.$apply(function() {
+              var endDate, startDate;
               if (opts.singleDatePicker) {
                 if (!picker.startDate) {
                   $scope.model = null;
@@ -218,9 +220,16 @@
                   $scope.model = picker.startDate;
                 }
               } else if (!picker.startDate.isSame(picker.oldStartDate) || !picker.endDate.isSame(picker.oldEndDate) || !$scope.model || !picker.startDate.isSame($scope.model.startDate) || !picker.endDate.isSame($scope.model.endDate)) {
+                if ($scope.addutcdiff) {
+                  startDate = picker.startDate.add(picker.startDate.utcOffset(), 'minutes');
+                  endDate = picker.endDate.add(picker.endDate.utcOffset(), 'minutes');
+                } else {
+                  startDate = picker.startDate;
+                  endDate = picker.endDate;
+                }
                 $scope.model = {
-                  startDate: picker.startDate,
-                  endDate: picker.endDate,
+                  startDate: startDate,
+                  endDate: endDate,
                   label: picker.chosenLabel
                 };
               }
